@@ -1,6 +1,10 @@
+github.com/docker/docker v1.13.1 h1:IkZjBSIc8hBjLpqeAbeE5mca5mNgeatLHBy3GO78BWo=
+github.com/docker/docker v1.13.1/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
 github.com/moov-io/base v0.2.1 h1:lz444VtDXAtZZsGRPyNueL8C5bU5D+kN6VgLUzyZXaA=
 github.com/moov-io/base v0.2.1/go.mod h1:pPu/TAc9PkaaegbREVEeDHsGqyAlvji9vqTuARuAnd0=
 github.com/moov-io/base v0.3.0 h1:RXEGqcBuR5n9aV4KwmDQ5z3gBXpTH+JTjyRKq0kY32c=
 github.com/moov-io/base v0.3.0/go.mod h1:pPu/TAc9PkaaegbREVEeDHsGqyAlvji9vqTuARuAnd0=
 github.com/rickar/cal v1.0.0 h1:kb1QBxUDVz433Pw+NB4o6auW75d7HdsaD5ZsdnPdV/E=
 github.com/rickar/cal v1.0.0/go.mod h1:3GBx8OBrvh4/y/JTxM0e1bUUIHMnqILl1rMANHWExxQ=
+github.com/xrash/smetrics v0.0.0-20170218160415-a3153f7040e9 h1:w8V9v0qVympSF6GjdjIyeqR7+EVhAF9CBQmkmW7Zw0w=
+github.com/xrash/smetrics v0.0.0-20170218160415-a3153f7040e9/go.mod h1:N3UwUGtsrSj3ccvlPHLoLsHnpR27oXr4ZE984MbSER8=
