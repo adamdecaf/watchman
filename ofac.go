@@ -6,7 +6,15 @@ package ofac
 
 // ToDo: NON-SDN List, Consolidated List - They appear to have the same format. Other list?
 
-// SDN is a specially Designated National
+type Customer struct {
+	ID        string               `json:"id"`
+	SDN       *SDN                 `json:"sdn"`
+	Addresses []*Address           `json:"addresses"`
+	Alts      []*AlternateIdentity `json:"alts"`
+	Comments  []*SDNComments       `json:"comments"`
+}
+
+// SDN is a Specially Designated National
 type SDN struct {
 	// EntityID (ent_num) is the unique record identifier/unique listing identifier
 	EntityID string `json:"entityID"`

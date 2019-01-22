@@ -15,14 +15,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type Customer struct {
-	ID        string                    `json:"id"`
-	SDN       *ofac.SDN                 `json:"sdn"`
-	Addresses []*ofac.Address           `json:"addresses"`
-	Alts      []*ofac.AlternateIdentity `json:"alts"`
-	Comments  []*ofac.SDNComments       `json:"comments"`
-}
-
 type customerWatchResponse struct {
 	WatchID string `json:"watchId"`
 }
@@ -47,7 +39,7 @@ func getCustomer(logger log.Logger) http.HandlerFunc {
 
 		w.WriteHeader(http.StatusOK)
 
-		customer := Customer{
+		customer := ofac.Customer{
 			ID: "13ou1fohfkajfah", // "random"
 			SDN: &ofac.SDN{
 				EntityID: "306",

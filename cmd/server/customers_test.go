@@ -27,7 +27,7 @@ func TestCustomer_get(t *testing.T) {
 		t.Errorf("bogus status code: %d", w.Code)
 	}
 
-	var cust Customer
+	var cust ofac.Customer
 	if err := json.NewDecoder(w.Body).Decode(&cust); err != nil {
 		t.Fatal(err)
 	}
