@@ -13,6 +13,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 
 	moovhttp "github.com/moov-io/base/http"
 	"github.com/moov-io/ofac"
@@ -120,11 +121,12 @@ func search(logger log.Logger, searcher *searcher) http.HandlerFunc {
 }
 
 type searcher struct {
-	SDNs []*SDN
+	SDNs         []*SDN
+	Addresses    []*Address
+	Alts         []*Alt
+	sync.RWMutex // protects all above fields
 
-	Addresses []*Address
-
-	Alts []*Alt
+	logger log.Logger
 }
 
 // SDN is ofac.SDN wrapped with precomputed search metadata
@@ -193,6 +195,9 @@ func precompute(s string) []string {
 
 func searchByAddress(logger log.Logger, searcher *searcher, req addressSearchRequest) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		searcher.RLock()
+		defer searcher.RUnlock()
+
 		hasAddress := req.Address != ""
 		reqAdds := strings.Fields(strings.ToLower(req.Address))
 
@@ -236,6 +241,9 @@ func searchByName(logger log.Logger, searcher *searcher, nameSlug string) http.H
 			return
 		}
 
+		searcher.RLock()
+		defer searcher.RUnlock()
+
 		var answers []*ofac.SDN
 		for i := range searcher.SDNs {
 			sdn := searcher.SDNs[i]
@@ -269,6 +277,9 @@ func searchByAltName(logger log.Logger, searcher *searcher, altSlug string) http
 			moovhttp.Problem(w, errNoSearchParams)
 			return
 		}
+
+		searcher.RLock()
+		defer searcher.RUnlock()
 
 		var answers []*ofac.AlternateIdentity
 		for i := range searcher.Alts {
