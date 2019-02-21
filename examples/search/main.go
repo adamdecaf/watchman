@@ -41,6 +41,12 @@ func main() {
 		errs <- fmt.Errorf("%s", <-c)
 	}()
 
+	// Setup OFAC client
+	client := ofacClient(logger)
+	if client == nil {
+		panic("nil OFAC client, is OFAC_ENDPOINT specified?")
+	}
+
 	// Setup HTTP handler
 	handler := mux.NewRouter()
 	addPingRoute(handler)
