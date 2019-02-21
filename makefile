@@ -9,6 +9,9 @@ build-server:
 
 build-examples: build-search-example build-webhook-example
 
+build-search-example:
+	CGO_ENABLED=0 go build -o ./bin/search-example github.com/moov-io/ofac/examples/search
+
 build-webhook-example:
 	CGO_ENABLED=0 go build -o ./bin/webhook-example github.com/moov-io/ofac/examples/webhook
 
@@ -35,6 +38,9 @@ docker:
 # Main OFAC server Docker image
 	docker build --pull -t moov/ofac:$(VERSION) -f Dockerfile .
 	docker tag moov/ofac:$(VERSION) moov/ofac:latest
+# search example
+	docker build --pull -t moov/ofac-search-example:$(VERSION) -f ./examples/search/Dockerfile .
+	docker tag moov/ofac-search-example:$(VERSION) moov/ofac-search-example:latest
 # webhook example
 	docker build --pull -t moov/ofac-webhook-example:$(VERSION) -f ./examples/webhook/Dockerfile .
 	docker tag moov/ofac-webhook-example:$(VERSION) moov/ofac-webhook-example:latest
