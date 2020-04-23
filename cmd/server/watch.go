@@ -12,6 +12,7 @@ import (
 
 	"github.com/moov-io/base"
 	moovhttp "github.com/moov-io/base/http"
+	"github.com/moov-io/watchman/client"
 
 	"github.com/go-kit/kit/log"
 	"github.com/gorilla/mux"
@@ -52,6 +53,9 @@ type watchRepository interface {
 	addCustomerNameWatch(name string, webhook string, authToken string) (string, error)
 	removeCustomerWatch(customerID string, watchID string) error
 	removeCustomerNameWatch(watchID string) error
+
+	// Watch history
+	getOFACWatchHistory(watchID string, limit int) ([]client.OfacWatchHistory, error)
 }
 
 type sqliteWatchRepository struct {

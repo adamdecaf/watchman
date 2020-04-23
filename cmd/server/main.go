@@ -191,6 +191,7 @@ func main() {
 	addSearchRoutes(logger, router, searcher)
 	addDownloadRoutes(logger, router, downloadRepo)
 	addValuesRoutes(logger, router, searcher)
+	addWatchRoutes(logger, router, watchRepo)
 
 	// Setup our web UI to be served as well
 	setupWebui(logger, router, *flagBasePath)
