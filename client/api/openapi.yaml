@@ -307,7 +307,7 @@ paths:
       responses:
         "200":
           description: Company watch removed
-      summary: Remove a company watch
+      summary: Remove company watch
       tags:
       - Watchman
   /ofac/customers/{customerID}:
@@ -586,7 +586,7 @@ paths:
       responses:
         "200":
           description: Company or Customer watch removed
-      summary: remove a customer watch
+      summary: Remove customer watch
       tags:
       - Watchman
   /ofac/sdn/{sdnID}:
@@ -954,6 +954,45 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Invalid key
       summary: Get UI values
+      tags:
+      - Watchman
+  /ofac/sdn/watches/{watchID}:
+    get:
+      description: Return the latest OFAC search results for the specified watchID
+      operationId: getOFACWatchHistory
+      parameters:
+      - description: watchID identifier to get history for
+        explode: false
+        in: path
+        name: watchID
+        required: true
+        schema:
+          example: 4fbe880f
+          type: string
+        style: simple
+      - description: Maximum results returned by a search
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          example: 25
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfacWatchHistory'
+          description: Ordered list of OFAC search results
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Problem getting OFAC watch history, see error
+      summary: Get OFAC Watch History
       tags:
       - Watchman
 components:
@@ -1737,6 +1776,64 @@ components:
         example: '["entity","aircraft","individual","vessel"]'
         type: string
       type: array
+    OfacWatchHistory:
+      example:
+        watchID: 6c5443f9
+        type: customer_name
+        results:
+        - sdnType: Individual
+          createdAt: 2016-08-29T09:12:33.001Z
+          match: 0.91
+          entityID: "2141"
+          sdnName: John Smith
+        - sdnType: Individual
+          createdAt: 2016-08-29T09:12:33.001Z
+          match: 0.91
+          entityID: "2141"
+          sdnName: John Smith
+      properties:
+        watchID:
+          example: 6c5443f9
+          type: string
+        type:
+          enum:
+          - customer_name
+          - company_name
+          example: customer_name
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/OfacSearch'
+          type: array
+    OfacSearch:
+      example:
+        sdnType: Individual
+        createdAt: 2016-08-29T09:12:33.001Z
+        match: 0.91
+        entityID: "2141"
+        sdnName: John Smith
+      properties:
+        entityID:
+          description: SDN EntityID of the Entity
+          example: "2141"
+          type: string
+        sdnName:
+          description: Name of the SDN entity
+          example: John Smith
+          type: string
+        sdnType:
+          description: SDN entity type
+          example: Individual
+          type: string
+        match:
+          description: Percentage of similarity between the Customer name and this
+            OFAC entity
+          example: 0.91
+          type: number
+        createdAt:
+          example: 2016-08-29T09:12:33.001Z
+          format: date-time
+          type: string
     Error:
       properties:
         error:

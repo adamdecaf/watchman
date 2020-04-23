@@ -38,6 +38,7 @@ Class | Method | HTTP request | Description
 *WatchmanApi* | [**AddOfacCustomerNameWatch**](docs/WatchmanApi.md#addofaccustomernamewatch) | **Post** /ofac/customers/watch | Watch customer
 *WatchmanApi* | [**AddOfacCustomerWatch**](docs/WatchmanApi.md#addofaccustomerwatch) | **Post** /ofac/customers/{customerID}/watch | Watch OFAC customer
 *WatchmanApi* | [**GetLatestDownloads**](docs/WatchmanApi.md#getlatestdownloads) | **Get** /downloads | Get latest downloads
+*WatchmanApi* | [**GetOFACWatchHistory**](docs/WatchmanApi.md#getofacwatchhistory) | **Get** /ofac/sdn/watches/{watchID} | Get OFAC Watch History
 *WatchmanApi* | [**GetOfacCompany**](docs/WatchmanApi.md#getofaccompany) | **Get** /ofac/companies/{companyID} | Get company
 *WatchmanApi* | [**GetOfacCustomer**](docs/WatchmanApi.md#getofaccustomer) | **Get** /ofac/customers/{customerID} | Get Customer
 *WatchmanApi* | [**GetSDN**](docs/WatchmanApi.md#getsdn) | **Get** /ofac/sdn/{sdnID} | Get SDN
@@ -45,9 +46,9 @@ Class | Method | HTTP request | Description
 *WatchmanApi* | [**GetSDNAltNames**](docs/WatchmanApi.md#getsdnaltnames) | **Get** /ofac/sdn/{sdnID}/alts | Get SDN alt names
 *WatchmanApi* | [**GetUIValues**](docs/WatchmanApi.md#getuivalues) | **Get** /ui/values/{key} | Get UI values
 *WatchmanApi* | [**Ping**](docs/WatchmanApi.md#ping) | **Get** /ping | Ping Watchman
-*WatchmanApi* | [**RemoveOfacCompanyNameWatch**](docs/WatchmanApi.md#removeofaccompanynamewatch) | **Delete** /ofac/companies/watch/{watchID} | Remove a company watch
+*WatchmanApi* | [**RemoveOfacCompanyNameWatch**](docs/WatchmanApi.md#removeofaccompanynamewatch) | **Delete** /ofac/companies/watch/{watchID} | Remove company watch
 *WatchmanApi* | [**RemoveOfacCompanyWatch**](docs/WatchmanApi.md#removeofaccompanywatch) | **Delete** /ofac/companies/{companyID}/watch/{watchID} | Remove company watch
-*WatchmanApi* | [**RemoveOfacCustomerNameWatch**](docs/WatchmanApi.md#removeofaccustomernamewatch) | **Delete** /ofac/customers/watch/{watchID} | remove a customer watch
+*WatchmanApi* | [**RemoveOfacCustomerNameWatch**](docs/WatchmanApi.md#removeofaccustomernamewatch) | **Delete** /ofac/customers/watch/{watchID} | Remove customer watch
 *WatchmanApi* | [**RemoveOfacCustomerWatch**](docs/WatchmanApi.md#removeofaccustomerwatch) | **Delete** /ofac/customers/{customerID}/watch/{watchID} | Remove customer watch
 *WatchmanApi* | [**Search**](docs/WatchmanApi.md#search) | **Get** /search | Search SDNs
 *WatchmanApi* | [**UpdateOfacCompanyStatus**](docs/WatchmanApi.md#updateofaccompanystatus) | **Put** /ofac/companies/{companyID} | Update company
@@ -67,7 +68,9 @@ Class | Method | HTTP request | Description
  - [OfacCustomerStatus](docs/OfacCustomerStatus.md)
  - [OfacEntityAddress](docs/OfacEntityAddress.md)
  - [OfacSdn](docs/OfacSdn.md)
+ - [OfacSearch](docs/OfacSearch.md)
  - [OfacWatch](docs/OfacWatch.md)
+ - [OfacWatchHistory](docs/OfacWatchHistory.md)
  - [OfacWatchRequest](docs/OfacWatchRequest.md)
  - [Search](docs/Search.md)
  - [Ssi](docs/Ssi.md)

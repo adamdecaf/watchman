@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**AddOfacCustomerNameWatch**](WatchmanApi.md#AddOfacCustomerNameWatch) | **Post** /ofac/customers/watch | Watch customer
 [**AddOfacCustomerWatch**](WatchmanApi.md#AddOfacCustomerWatch) | **Post** /ofac/customers/{customerID}/watch | Watch OFAC customer
 [**GetLatestDownloads**](WatchmanApi.md#GetLatestDownloads) | **Get** /downloads | Get latest downloads
+[**GetOFACWatchHistory**](WatchmanApi.md#GetOFACWatchHistory) | **Get** /ofac/sdn/watches/{watchID} | Get OFAC Watch History
 [**GetOfacCompany**](WatchmanApi.md#GetOfacCompany) | **Get** /ofac/companies/{companyID} | Get company
 [**GetOfacCustomer**](WatchmanApi.md#GetOfacCustomer) | **Get** /ofac/customers/{customerID} | Get Customer
 [**GetSDN**](WatchmanApi.md#GetSDN) | **Get** /ofac/sdn/{sdnID} | Get SDN
@@ -16,9 +17,9 @@ Method | HTTP request | Description
 [**GetSDNAltNames**](WatchmanApi.md#GetSDNAltNames) | **Get** /ofac/sdn/{sdnID}/alts | Get SDN alt names
 [**GetUIValues**](WatchmanApi.md#GetUIValues) | **Get** /ui/values/{key} | Get UI values
 [**Ping**](WatchmanApi.md#Ping) | **Get** /ping | Ping Watchman
-[**RemoveOfacCompanyNameWatch**](WatchmanApi.md#RemoveOfacCompanyNameWatch) | **Delete** /ofac/companies/watch/{watchID} | Remove a company watch
+[**RemoveOfacCompanyNameWatch**](WatchmanApi.md#RemoveOfacCompanyNameWatch) | **Delete** /ofac/companies/watch/{watchID} | Remove company watch
 [**RemoveOfacCompanyWatch**](WatchmanApi.md#RemoveOfacCompanyWatch) | **Delete** /ofac/companies/{companyID}/watch/{watchID} | Remove company watch
-[**RemoveOfacCustomerNameWatch**](WatchmanApi.md#RemoveOfacCustomerNameWatch) | **Delete** /ofac/customers/watch/{watchID} | remove a customer watch
+[**RemoveOfacCustomerNameWatch**](WatchmanApi.md#RemoveOfacCustomerNameWatch) | **Delete** /ofac/customers/watch/{watchID} | Remove customer watch
 [**RemoveOfacCustomerWatch**](WatchmanApi.md#RemoveOfacCustomerWatch) | **Delete** /ofac/customers/{customerID}/watch/{watchID} | Remove customer watch
 [**Search**](WatchmanApi.md#Search) | **Get** /search | Search SDNs
 [**UpdateOfacCompanyStatus**](WatchmanApi.md#UpdateOfacCompanyStatus) | **Put** /ofac/companies/{companyID} | Update company
@@ -248,6 +249,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]Download**](Download.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetOFACWatchHistory
+
+> OfacWatchHistory GetOFACWatchHistory(ctx, watchID, optional)
+
+Get OFAC Watch History
+
+Return the latest OFAC search results for the specified watchID
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**watchID** | **string**| watchID identifier to get history for | 
+ **optional** | ***GetOFACWatchHistoryOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetOFACWatchHistoryOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **limit** | **optional.Int32**| Maximum results returned by a search | 
+
+### Return type
+
+[**OfacWatchHistory**](OfacWatchHistory.md)
 
 ### Authorization
 
@@ -568,7 +614,7 @@ No authorization required
 
 > RemoveOfacCompanyNameWatch(ctx, watchID, name, optional)
 
-Remove a company watch
+Remove company watch
 
 ### Required Parameters
 
@@ -662,7 +708,7 @@ No authorization required
 
 > RemoveOfacCustomerNameWatch(ctx, watchID, name, optional)
 
-remove a customer watch
+Remove customer watch
 
 ### Required Parameters
 
