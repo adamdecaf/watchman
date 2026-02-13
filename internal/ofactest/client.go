@@ -58,18 +58,18 @@ type SearchResult struct {
 }
 
 type ErrorResponse struct {
-	Name          string        `json:"name"`
-	City          string        `json:"city"`
-	IDNumber      string        `json:"idNumber"`
-	StateProvince string        `json:"stateProvince"`
-	NameScore     int           `json:"nameScore"`
-	Success       bool          `json:"success"`
-	ErrorMessage  string        `json:"errorMessage"`
-	Country       string        `json:"country"`
-	Programs      []interface{} `json:"programs"`
-	Type          string        `json:"type"`
-	Address       string        `json:"address"`
-	List          string        `json:"list"`
+	Name          string `json:"name"`
+	City          string `json:"city"`
+	IDNumber      string `json:"idNumber"`
+	StateProvince string `json:"stateProvince"`
+	NameScore     int    `json:"nameScore"`
+	Success       bool   `json:"success"`
+	ErrorMessage  string `json:"errorMessage"`
+	Country       string `json:"country"`
+	Programs      []any  `json:"programs"`
+	Type          string `json:"type"`
+	Address       string `json:"address"`
+	List          string `json:"list"`
 }
 
 func (er ErrorResponse) Error() string {

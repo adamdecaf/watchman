@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"slices"
 	"strconv"
 )
 
@@ -159,11 +160,8 @@ func arrayContains(checkArray []string, nameToCheck string) bool {
 	if nameToCheck == "" {
 		return true
 	}
-	for _, name := range checkArray {
-		if name == nameToCheck {
-			nameAlreadyExists = true
-			break
-		}
+	if slices.Contains(checkArray, nameToCheck) {
+		nameAlreadyExists = true
 	}
 	return nameAlreadyExists
 }

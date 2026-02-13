@@ -84,10 +84,7 @@ func (r *MockRepository) ListBySource(ctx context.Context, lastSourceID string, 
 		return nil, nil
 	}
 
-	endIdx := startIdx + limit
-	if endIdx > len(entities) {
-		endIdx = len(entities)
-	}
+	endIdx := min(startIdx+limit, len(entities))
 
 	return slices.Clone(entities[startIdx:endIdx]), nil
 }

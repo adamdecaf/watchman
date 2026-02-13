@@ -157,7 +157,7 @@ func TestMinMaxMed_Concurrency(t *testing.T) {
 	m := minmaxmed.New(100)
 
 	var g errgroup.Group
-	for i := 0; i < iterations; i++ {
+	for range iterations {
 		g.Go(func() error {
 			n := time.Now().UnixMilli() % 273
 

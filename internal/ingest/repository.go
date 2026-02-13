@@ -116,7 +116,7 @@ func (r *sqlRepository) ListBySource(ctx context.Context, lastSourceID string, s
 	return rows, nil
 }
 
-func (r *sqlRepository) queryScanEntities(ctx context.Context, qry string, args ...interface{}) ([]search.Entity[search.Value], error) {
+func (r *sqlRepository) queryScanEntities(ctx context.Context, qry string, args ...any) ([]search.Entity[search.Value], error) {
 	rows, err := r.db.QueryContext(ctx, qry, args...)
 	if err != nil {
 		return nil, fmt.Errorf("query for ingested entities: %w", err)

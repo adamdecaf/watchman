@@ -77,13 +77,10 @@ func (idx *vectorIndex) Search(query []float64, k int) []SearchResult {
 
 	var wg sync.WaitGroup
 
-	for w := 0; w < numWorkers; w++ {
+	for w := range numWorkers {
 		wg.Add(1)
 		start := w * chunkSize
-		end := start + chunkSize
-		if end > idx.count {
-			end = idx.count
-		}
+		end := min(start+chunkSize, idx.count)
 
 		go func(start, end int) {
 			defer wg.Done()
@@ -103,7 +100,7 @@ func (idx *vectorIndex) Search(query []float64, k int) []SearchResult {
 	if k < idx.count {
 		topK := selectTopK(scores, k)
 		results := make([]SearchResult, k)
-		for i := 0; i < k; i++ {
+		for i := range k {
 			s := topK[i]
 			results[i] = SearchResult{
 				ID:    idx.ids[s.idx],
@@ -212,13 +209,13 @@ func (h minHeap) Len() int           { return len(h.data) }
 func (h minHeap) Less(i, j int) bool { return h.data[i].score < h.data[j].score }
 func (h minHeap) Swap(i, j int)      { h.data[i], h.data[j] = h.data[j], h.data[i] }
 
-func (h *minHeap) Push(x interface{}) {
+func (h *minHeap) Push(x any) {
 	if s, ok := x.(scored); ok {
 		h.data = append(h.data, s)
 	}
 }
 
-func (h *minHeap) Pop() interface{} {
+func (h *minHeap) Pop() any {
 	old := h.data
 	n := len(old)
 	x := old[n-1]

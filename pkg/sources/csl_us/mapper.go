@@ -277,7 +277,7 @@ func mapPerson(src SanctionsEntry) *search.Person {
 
 	// Map Citizenships and Nationalities to GovernmentIDs
 	if src.Citizenships != "" {
-		for _, citizenship := range strings.Split(src.Citizenships, ";") {
+		for citizenship := range strings.SplitSeq(src.Citizenships, ";") {
 			citizenship = strings.TrimSpace(citizenship)
 			if citizenship != "" {
 				person.GovernmentIDs = append(person.GovernmentIDs, search.GovernmentID{
@@ -290,7 +290,7 @@ func mapPerson(src SanctionsEntry) *search.Person {
 	}
 
 	if src.Nationalities != "" {
-		for _, nationality := range strings.Split(src.Nationalities, ";") {
+		for nationality := range strings.SplitSeq(src.Nationalities, ";") {
 			nationality = strings.TrimSpace(nationality)
 			if nationality != "" {
 				person.GovernmentIDs = append(person.GovernmentIDs, search.GovernmentID{
@@ -406,8 +406,8 @@ func mapContactInfo(src SanctionsEntry) search.ContactInfo {
 
 	// Extract contact info from IDs or Remarks if available
 	if src.IDs != "" {
-		ids := strings.Split(src.IDs, ";")
-		for _, id := range ids {
+		ids := strings.SplitSeq(src.IDs, ";")
+		for id := range ids {
 			id = strings.TrimSpace(id)
 			if strings.HasPrefix(strings.ToLower(id), "website") {
 				info.Websites = append(info.Websites, strings.TrimPrefix(id, "Website "))
@@ -431,8 +431,8 @@ func mapAddresses(src SanctionsEntry) []search.Address {
 
 	var result []search.Address
 	// Split addresses by semicolon for multiple addresses
-	addresses := strings.Split(src.Addresses, ";")
-	for _, addr := range addresses {
+	addresses := strings.SplitSeq(src.Addresses, ";")
+	for addr := range addresses {
 		addr = strings.TrimSpace(addr)
 		if addr == "" {
 			continue
@@ -493,8 +493,8 @@ func mapAffiliations(src SanctionsEntry) []search.Affiliation {
 
 	var affiliations []search.Affiliation
 	// Basic heuristic: look for patterns like "Linked To" or "Owned By" in remarks
-	remarks := strings.Split(src.Remarks, ";")
-	for _, remark := range remarks {
+	remarks := strings.SplitSeq(src.Remarks, ";")
+	for remark := range remarks {
 		remark = strings.TrimSpace(remark)
 		if strings.Contains(strings.ToLower(remark), "linked to") ||
 			strings.Contains(strings.ToLower(remark), "owned by") ||
@@ -538,8 +538,8 @@ func mapGovernmentIDs(src SanctionsEntry) []search.GovernmentID {
 	}
 
 	var ids []search.GovernmentID
-	idEntries := strings.Split(src.IDs, ";")
-	for _, idEntry := range idEntries {
+	idEntries := strings.SplitSeq(src.IDs, ";")
+	for idEntry := range idEntries {
 		idEntry = strings.TrimSpace(idEntry)
 		if idEntry == "" {
 			continue
@@ -662,8 +662,8 @@ func parseIntOrZero(value string) int {
 
 func extractGender(ids string) string {
 	// Extract gender from IDs field (e.g., "Gender, Male")
-	idEntries := strings.Split(ids, ";")
-	for _, idEntry := range idEntries {
+	idEntries := strings.SplitSeq(ids, ";")
+	for idEntry := range idEntries {
 		idEntry = strings.TrimSpace(idEntry)
 		if strings.HasPrefix(strings.ToLower(idEntry), "gender") {
 			parts := strings.SplitN(idEntry, ",", 2)

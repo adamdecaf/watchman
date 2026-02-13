@@ -120,7 +120,7 @@ func hashWriter(rc io.ReadCloser) (io.Reader, *bytes.Buffer) {
 var (
 	// Pool for CSV record slices
 	csvRecordPool = sync.Pool{
-		New: func() interface{} {
+		New: func() any {
 			return make([]string, 12) // Max size needed (SDN file)
 		},
 	}
@@ -356,7 +356,7 @@ func csvSDNCommentsFile(results *Results, f io.ReadCloser) (string, error) {
 // (ASCII characters 45, 48, 45).
 func replaceNull(s []string) []string {
 	const null = "-0-"
-	for i := 0; i < len(s); i++ {
+	for i := range s {
 		// Fast path - if it doesn't contain -0-, just trim
 		if !strings.Contains(s[i], null) {
 			s[i] = strings.TrimSpace(s[i])

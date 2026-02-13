@@ -27,13 +27,13 @@ func TestConcurrencyManager(t *testing.T) {
 		better := initial + 1
 
 		// Record dramatically different durations many times
-		for i := 0; i < 1000; i++ { // More samples
+		for range 1000 { // More samples
 			cm.RecordDuration(initial, 1000*time.Millisecond) // 1 second
 			cm.RecordDuration(better, 1*time.Millisecond)     // 1 millisecond
 		}
 
 		// Force multiple evaluations with time for the evaluationLoop to process
-		for i := 0; i < 10; i++ {
+		for range 10 {
 			cm.evaluate()
 			time.Sleep(10 * time.Millisecond)
 		}
@@ -117,7 +117,7 @@ func TestRaceConditions(t *testing.T) {
 
 	var wg sync.WaitGroup
 	// Deliberately create race conditions
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		wg.Add(3)
 
 		// Concurrent stats recording
@@ -156,7 +156,7 @@ func TestStressConcurrencyManager(t *testing.T) {
 	done := make(chan struct{})
 
 	// Start multiple goroutines doing different operations
-	for i := 0; i < 10; i++ {
+	for range 10 {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

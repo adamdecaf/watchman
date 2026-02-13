@@ -383,12 +383,12 @@ func parseDeliveryLine(line string, addr *Address) {
 
 		// After parsing Street Suffix and Post-directional
 		if i < len(components) {
-			unit := ""
+			var unit strings.Builder
 			// Collect remaining components as SecondaryUnit
 			for ; i < len(components); i++ {
-				unit += components[i] + " "
+				unit.WriteString(components[i] + " ")
 			}
-			addr.SecondaryUnit = strings.TrimSpace(unit)
+			addr.SecondaryUnit = strings.TrimSpace(unit.String())
 		}
 	}
 }

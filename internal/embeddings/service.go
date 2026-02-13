@@ -251,10 +251,7 @@ func (s *service) BuildIndex(ctx context.Context, names []string, ids []string) 
 			default:
 			}
 
-			end := i + batchSize
-			if end > len(uncachedNames) {
-				end = len(uncachedNames)
-			}
+			end := min(i+batchSize, len(uncachedNames))
 
 			batch := uncachedNames[i:end]
 			embeddings, err := s.provider.Embed(ctx, batch)

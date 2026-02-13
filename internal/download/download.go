@@ -274,7 +274,7 @@ func getIncludedLists(conf Config) []search.SourceList {
 
 	fromEnvStr := strings.TrimSpace(os.Getenv("INCLUDED_LISTS"))
 	if fromEnvStr != "" {
-		for _, v := range strings.Split(fromEnvStr, ",") {
+		for v := range strings.SplitSeq(fromEnvStr, ",") {
 			list := strings.ToLower(strings.TrimSpace(v))
 			if list != "" {
 				out = append(out, search.SourceList(list))
@@ -300,11 +300,8 @@ func findExtraLists(config, loaded []search.SourceList) string {
 
 	for _, c := range config {
 		var found bool
-		for _, l := range loaded {
-			if c == l {
-				found = true
-				break
-			}
+		if slices.Contains(loaded, c) {
+			found = true
 		}
 		if !found {
 			extra = append(extra, c)

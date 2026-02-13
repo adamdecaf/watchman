@@ -99,7 +99,7 @@ func TestIDFBounds(t *testing.T) {
 
 	// Create documents where one term is extremely common
 	documents := make([][]string, 100)
-	for i := 0; i < 100; i++ {
+	for i := range 100 {
 		documents[i] = []string{"common"}
 	}
 	// Add one document with a rare term
@@ -239,7 +239,7 @@ func TestConcurrentAccess(t *testing.T) {
 
 	// Concurrent reads should be safe
 	var wg sync.WaitGroup
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
@@ -329,9 +329,9 @@ func BenchmarkBuild(b *testing.B) {
 	// Create realistic corpus
 	documents := make([][]string, 10000)
 	terms := []string{"trading", "company", "ltd", "corp", "limited", "holdings", "group", "international"}
-	for i := 0; i < 10000; i++ {
+	for i := range 10000 {
 		doc := make([]string, 3)
-		for j := 0; j < 3; j++ {
+		for j := range 3 {
 			doc[j] = terms[(i+j)%len(terms)]
 		}
 		documents[i] = doc
@@ -348,7 +348,7 @@ func BenchmarkGetIDF(b *testing.B) {
 	idx := NewIndex(cfg)
 
 	documents := make([][]string, 1000)
-	for i := 0; i < 1000; i++ {
+	for i := range 1000 {
 		documents[i] = []string{"term1", "term2", "term3"}
 	}
 	idx.Build(documents)
@@ -364,7 +364,7 @@ func BenchmarkGetWeights(b *testing.B) {
 	idx := NewIndex(cfg)
 
 	documents := make([][]string, 1000)
-	for i := 0; i < 1000; i++ {
+	for i := range 1000 {
 		documents[i] = []string{"term1", "term2", "term3"}
 	}
 	idx.Build(documents)

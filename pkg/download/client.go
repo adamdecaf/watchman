@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"maps"
 	"net/http"
 	"net/url"
 	"os"
@@ -81,9 +82,7 @@ func (dl *Downloader) withAdditionalHeaders(additional map[string]string) {
 		return
 	}
 
-	for k, v := range additional {
-		dl.additionalHeaders[k] = v
-	}
+	maps.Copy(dl.additionalHeaders, additional)
 }
 
 const (
@@ -201,7 +200,7 @@ func (dl *Downloader) retryDownload(ctx context.Context, downloadURL string) (io
 	}
 
 	// Allow a couple retries for various sources (some are flakey)
-	for i := 0; i < 3; i++ {
+	for range 3 {
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, downloadURL, nil)
 		if err != nil {
 			return nil, dl.Logger.Error().LogErrorf("error building HTTP request: %v", err).Err()

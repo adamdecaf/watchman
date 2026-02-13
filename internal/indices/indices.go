@@ -48,10 +48,7 @@ func ProcessSlice[T any, F any](in []T, workers int, f func(T) F) []F {
 	}
 
 	// Calculate chunk size
-	chunkSize := len(in) / workers
-	if chunkSize < 1 {
-		chunkSize = 1
-	}
+	chunkSize := max(len(in)/workers, 1)
 
 	// Pre-allocate output slice
 	out := make([]F, len(in))
@@ -61,10 +58,7 @@ func ProcessSlice[T any, F any](in []T, workers int, f func(T) F) []F {
 	for i := 0; i < len(in); i += chunkSize {
 		wg.Add(1)
 		start := i
-		end := i + chunkSize
-		if end > len(in) {
-			end = len(in)
-		}
+		end := min(i+chunkSize, len(in))
 
 		go func(start, end int) {
 			defer wg.Done()
@@ -94,10 +88,7 @@ func ProcessSliceFn[T any](in []T, workers int, f func(T)) {
 	}
 
 	// Calculate chunk size
-	chunkSize := len(in) / workers
-	if chunkSize < 1 {
-		chunkSize = 1
-	}
+	chunkSize := max(len(in)/workers, 1)
 
 	var wg sync.WaitGroup
 
@@ -105,10 +96,7 @@ func ProcessSliceFn[T any](in []T, workers int, f func(T)) {
 	for i := 0; i < len(in); i += chunkSize {
 		wg.Add(1)
 		start := i
-		end := i + chunkSize
-		if end > len(in) {
-			end = len(in)
-		}
+		end := min(i+chunkSize, len(in))
 
 		go func(start, end int) {
 			defer wg.Done()

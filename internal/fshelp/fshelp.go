@@ -10,7 +10,7 @@ import (
 func FindPkgDir() (string, error) {
 	// Look at our lineage to find "pkg"
 	var accum string
-	for i := 0; i < 7; i++ { // only go up a few subdirs
+	for range 7 { // only go up a few subdirs
 		accum = filepath.Join("..", accum)
 
 		fds, err := os.ReadDir(accum)

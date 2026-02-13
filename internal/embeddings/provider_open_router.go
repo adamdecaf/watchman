@@ -96,7 +96,6 @@ func (p *OpenRouterProvider) Embed(ctx context.Context, texts []string) ([][]flo
 	g, ctx := errgroup.WithContext(ctx)
 
 	for i := range texts {
-		i := i // capture for closure
 		text := texts[i]
 
 		g.Go(func() error {

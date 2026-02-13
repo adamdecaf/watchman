@@ -2,6 +2,7 @@ package concurrencychamp
 
 import (
 	"fmt"
+	"maps"
 	"math"
 	"math/rand/v2"
 	"sync"
@@ -315,9 +316,7 @@ func (cm *ConcurrencyManager) evaluate() {
 	cm.mu.Lock()
 	// Gather data under lock
 	trafficWeightsCopy := make(map[int]float64, len(cm.trafficWeights))
-	for k, v := range cm.trafficWeights {
-		trafficWeightsCopy[k] = v
-	}
+	maps.Copy(trafficWeightsCopy, cm.trafficWeights)
 	champion := cm.champion
 	cm.mu.Unlock()
 

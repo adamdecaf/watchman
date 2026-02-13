@@ -18,5 +18,5 @@ type SearchedEntity[T any] struct {
 	//
 	// The fields returned may change as the general similarity algorithm and scoring methodologies evolve.
 	// There is no API stability guarantee for Details or SimilarityScore.
-	Details SimilarityScore `json:"details,omitempty,omitzero"`
+	Details SimilarityScore `json:"details,omitzero"`
 }

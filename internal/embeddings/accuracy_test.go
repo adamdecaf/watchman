@@ -467,7 +467,7 @@ func BenchmarkSearchLargeIndex(b *testing.B) {
 	// Expand to ~1000 entries
 	var names []string
 	var ids []string
-	for i := 0; i < 60; i++ {
+	for i := range 60 {
 		for j, name := range baseNames {
 			names = append(names, fmt.Sprintf("%s %d", name, i))
 			ids = append(ids, fmt.Sprintf("id_%d_%d", i, j))

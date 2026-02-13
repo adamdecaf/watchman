@@ -27,8 +27,8 @@ func TestRepository(t *testing.T) {
 		require.NotNil(t, found)
 
 		// Empty SourceData // TODO(adam): can we unmarshal?
-		entity.SourceData = make(map[string]interface{})
-		found.SourceData = make(map[string]interface{})
+		entity.SourceData = make(map[string]any)
+		found.SourceData = make(map[string]any)
 
 		// Compare objects
 		require.Equal(t, entity.Normalize(), found.Normalize())

@@ -284,7 +284,7 @@ func GenerateWordCombinations(tokens []string) [][]string {
 	combinedForward := make([]string, 0, len(tokens))
 	skipNext := false
 
-	for i := 0; i < len(tokens); i++ {
+	for i := range tokens {
 		if skipNext {
 			skipNext = false
 			continue
@@ -309,7 +309,7 @@ func GenerateWordCombinations(tokens []string) [][]string {
 	if len(combinedForward) < len(tokens) {
 		combinedBackward := make([]string, 0, len(tokens))
 
-		for i := 0; i < len(tokens); i++ {
+		for i := range tokens {
 			if i > 0 && len(tokens[i]) <= 3 {
 				// Ensure we're not accessing beyond slice bounds
 				if len(combinedBackward) > 0 {
@@ -487,7 +487,7 @@ func generateWeightCombinations(tokens []string, weights []float64) [][]float64 
 	// Forward combinations
 	combinedForward := make([]float64, 0, len(tokens))
 	skipNext := false
-	for i := 0; i < len(tokens); i++ {
+	for i := range tokens {
 		if skipNext {
 			skipNext = false
 			continue
@@ -506,7 +506,7 @@ func generateWeightCombinations(tokens []string, weights []float64) [][]float64 
 	// Backward combinations
 	if len(combinedForward) < len(tokens) {
 		combinedBackward := make([]float64, 0, len(tokens))
-		for i := 0; i < len(tokens); i++ {
+		for i := range tokens {
 			if i > 0 && len(tokens[i]) <= 3 {
 				if len(combinedBackward) > 0 {
 					combinedBackward[len(combinedBackward)-1] += weights[i]

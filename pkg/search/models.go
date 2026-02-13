@@ -9,7 +9,7 @@ import (
 	"github.com/moov-io/watchman/internal/prepare"
 )
 
-type Value interface{}
+type Value any
 
 type Entity[T Value] struct {
 	Name   string     `json:"name"`
@@ -251,7 +251,7 @@ type SanctionsInfo struct {
 type HistoricalInfo struct {
 	Type  string    `json:"type"`  // e.g., "Former Name", "Previous Flag"
 	Value string    `json:"value"` // The historical value
-	Date  time.Time `json:"date,omitempty"`
+	Date  time.Time `json:"date"`
 }
 
 type PreparedFields struct {

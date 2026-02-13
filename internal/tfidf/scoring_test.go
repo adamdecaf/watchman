@@ -2,6 +2,7 @@ package tfidf_test
 
 import (
 	"sort"
+	"strings"
 	"testing"
 
 	"github.com/moov-io/watchman/internal/stringscore"
@@ -141,14 +142,14 @@ func TestWeightedScoringDistinguishesRareTerms(t *testing.T) {
 }
 
 func joinTokens(tokens []string) string {
-	result := ""
+	var result strings.Builder
 	for i, t := range tokens {
 		if i > 0 {
-			result += " "
+			result.WriteString(" ")
 		}
-		result += t
+		result.WriteString(t)
 	}
-	return result
+	return result.String()
 }
 
 // TestTFIDFReducesFalsePositivesForCommonTerms shows that searching
