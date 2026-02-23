@@ -1,57 +1,50 @@
 version: 2
-
 builds:
-- id: watchman
-  main: ./cmd/server
-  binary: watchman
-  env:
-    - CGO_ENABLED=1
-    - RELEASE=yes
-  goos:
-    - linux
-    - darwin
-    - windows
-  goarch:
-    - amd64
-    - arm64
-   ignore:
-     - goos: windows
-       goarch: arm64
-     - goos: darwin
-       goarch: 386
-   overrides:
-     - goos: linux
-       goarch: arm64
-       env:
-         - CC=aarch64-linux-gnu-gcc
-     - goos: darwin
-       goarch: amd64
-       env:
-         - CC=zig cc -target x86_64-macos-none
-     - goos: darwin
-       goarch: arm64
-       env:
-         - CC=zig cc -target aarch64-macos-none
-     - goos: windows
-       goarch: amd64
-       env:
-         - CC=zig cc -target x86_64-windows-gnu
-     - goos: windows
-       goarch: 386
-       env:
-         - CC=zig cc -target i386-windows-gnu
-   ldflags:
-    - -s -w # strip debug info + DWARF
-    - -X main.Version={{ .Version }}
-    - -X main.Commit={{ .FullCommit }}
-    - -X main.Date={{ .Date }}
-    - -X github.com/moov-io/watchman.Version={{ .Tag }}
-- id: watchman-ui
-   builder: prebuilt
-   files:
-   - dist/linux-amd64/watchman-ui.tar.gz
-   - dist/linux-arm64/watchman-ui.tar.gz
-   - dist/darwin-amd64/watchman-ui.tar.gz
-   - dist/darwin-arm64/watchman-ui.tar.gz
-   - dist/windows-amd64/watchman-ui.zip
-   - dist/windows-386/watchman-ui.zip
+  - id: watchman
+    main: ./cmd/server
+    binary: watchman
+    env:
+      - CGO_ENABLED=1
+      - RELEASE=yes
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+      - goos: darwin
+        goarch: 386
+    ldflags:
+      - -s -w # strip debug info + DWARF
+      - -X main.Version={{ .Version }}
+      - -X main.Commit={{ .FullCommit }}
+      - -X main.Date={{ .Date }}
+      - -X github.com/moov-io/watchman.Version={{ .Tag }}
+  - id: watchman-ui
+    main: ./cmd/ui
+    binary: watchman-ui
+    env:
+      - CGO_ENABLED=1
+      - RELEASE=yes
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+      - goos: darwin
+        goarch: 386
+    ldflags:
+      - -s -w # strip debug info + DWARF
+      - -X main.Version={{ .Version }}
+      - -X main.Commit={{ .FullCommit }}
+      - -X main.Date={{ .Date }}
+      - -X github.com/moov-io/watchman.Version=={{ .Tag }}
